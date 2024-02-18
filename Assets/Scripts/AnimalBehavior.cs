@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+// Interface for interactable objects
 public interface IInteractable
 {
-    void animalInteract();
+    void Interact();
 }
 
 // Abstract Base Class
@@ -18,12 +19,15 @@ public abstract class Animal
     public abstract string animalSound(string sound);
 }
 
-public class Moose : Animal
+// Implementing the IInteractable interface in Moose class
+public class Moose : Animal, IInteractable
 {
-    //public override void Interact()
-    //{
+    public void Interact()
+    {
+        // Implement interaction behavior for Moose
+        Debug.Log("Moose is being interacted with!");
+    }
 
-    //}
     public override int animalAmount(int animalAmount)
     {
         return 4;
@@ -45,8 +49,15 @@ public class Moose : Animal
     }
 }
 
-public class Gorilla : Animal
+// Implementing the IInteractable interface in Gorilla class
+public class Gorilla : Animal, IInteractable
 {
+    public void Interact()
+    {
+        // Implement interaction behavior for Gorilla
+        Debug.Log("Gorilla is being interacted with!");
+    }
+
     public override int animalAmount(int animalAmount)
     {
         return 4;
@@ -65,51 +76,5 @@ public class Gorilla : Animal
     public override string animalSound(string sound)
     {
         return "These Gorillas make a Grunt or Grumble Sound.";
-    }
-}
-
-public class Tortoise : Animal
-{
-    public override int animalAmount(int animalAmount)
-    {
-        return 5;
-    }
-
-    public override string animalName(string name)
-    {
-        return "Tortoise";
-    }
-
-    public override string animalDescription(string description)
-    {
-        return "These Tortoise are Small and slow, they are Green.";
-    }
-
-    public override string animalSound(string sound)
-    {
-        return "These Tortoise make a Click or Croaking Sound.";
-    }
-}
-
-public class Monkey : Animal
-{
-    public override int animalAmount(int animalAmount)
-    {
-        return 6;
-    }
-
-    public override string animalName(string name)
-    {
-        return "Monkeys";
-    }
-
-    public override string animalDescription(string description)
-    {
-        return "These Monkey are Small and Curious, they are Brown.";
-    }
-
-    public override string animalSound(string sound)
-    {
-        return "The Monkey make a Scream or Howl Sound.";
     }
 }
