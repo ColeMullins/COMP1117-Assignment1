@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public interface IInteractable
 {
-
+    void animalInteract();
 }
 
 // Abstract Base Class
@@ -20,10 +20,10 @@ public abstract class Animal
 
 public class Moose : Animal
 {
-    public override void Interact()
-    {
+    //public override void Interact()
+    //{
 
-    }
+    //}
     public override int animalAmount(int animalAmount)
     {
         return 4;
