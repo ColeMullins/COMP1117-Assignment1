@@ -8,27 +8,28 @@ using TMPro;
 public class AnimalBehavior : MonoBehaviour
 {
     public TMP_Text Text;
-    int number;
-    string name;
-    private void update() 
+    int AniNumber;
+    string AniName;
+
+    private void Update()
     {
         ButtonPromptManager button = GetComponent<ButtonPromptManager>();
         Animal[] animal = { new Moose(), new Gorilla(), new Tortoise(), new Monkey() };
-        if (button.getNumber(number)>=0)
+        if (button.getNumber(AniNumber) >= 0)
         {
-            Text.text = "animal Name:" + animal[number].animalName(name); "Amount:" + animal[number].animalAmount() + "Description" + animal[number].animalDescription() + "Sound" + animal[number].animalSound();
+            int amount = animal[AniNumber].AnimalAmount();
+            string name = animal[AniNumber].AnimalName();
+            string description = animal[AniNumber].AnimalDescription();
+            string sound = animal[AniNumber].AnimalSound();
+
+            Text.text = "animal Name:" + name + " Amount:" + amount + " Description:" + description + " Sound:" + sound;
         }
     }
-
 }
-
-
-
-
 
 public interface IInteractable
 {
-    void animalInteract();
+    void AnimalInteract();
 }
 
 public interface IFeedable
@@ -39,140 +40,100 @@ public interface IFeedable
 // Abstract Base Class
 public abstract class Animal
 {
-    public abstract int animalAmount(int animalAmount);
-    public abstract void animalName(string name);
-    public abstract string animalDescription(string description);
-    public abstract string animalSound(string sound);
+    public abstract int AnimalAmount();
+    public abstract string AnimalName();
+    public abstract string AnimalDescription();
+    public abstract string AnimalSound();
 }
 
 public class Moose : Animal
 {
-    public void Interact()
-    {
-        Debug.Log("Moose is being interacted with!");
-    }
-
-    public void FeedAnimal()
-    {
-        Debug.Log("Moose has been fed!");
-    }
-
-    public override int animalAmount(int animalAmount)
+    public override int AnimalAmount()
     {
         return 4;
     }
 
-    public override void animalName(string name)
+    public override string AnimalName()
     {
-        name = "Moose (Meese)";
+        return "Moose (Meese)";
     }
 
-    public override string animalDescription(string description)
+    public override string AnimalDescription()
     {
-        return "These Moose are Large and Majestic, they are Brown.";
+        return "These Moose are large and majestic. They are brown in colour.";
     }
 
-    public override string animalSound(string sound)
+    public override string AnimalSound()
     {
-        return "These Moose make a Bellowing or Roar Sound.";
+        return "These Moose make a bellowing or roar Sound.";
     }
 }
 
 public class Gorilla : Animal
 {
-    public void Interact()
-    {
-        Debug.Log("Gorilla is being interacted with!");
-    }
-
-    public void FeedAnimal()
-    {
-        Debug.Log("Gorilla has been fed!");
-    }
-
-    public override int animalAmount(int animalAmount)
+    public override int AnimalAmount()
     {
         return 4;
     }
 
-    public override void animalName(string name)
+    public override string AnimalName()
     {
-        name =  "Silverback Gorilla";
+        return "Silverback Gorilla";
     }
 
-    public override string animalDescription(string description)
+    public override string AnimalDescription()
     {
-        return "These Gorillas are Large and Hulking, they are Black with Silver backs.";
+        return "These Gorillas are large and hulking. They are black in colour with silver backs.";
     }
 
-    public override string animalSound(string sound)
+    public override string AnimalSound()
     {
-        return "These Gorillas make a Grunt or Grumble Sound.";
+        return "These Gorillas make a grunt or grumble sound.";
     }
 }
 
 public class Tortoise : Animal
 {
-    public void Interact()
-    {
-        Debug.Log("Tortoise is being interacted with!");
-    }
-
-    public void FeedAnimal()
-    {
-        Debug.Log("Tortoise has been fed!");
-    }
-
-    public override int animalAmount(int animalAmount)
+    public override int AnimalAmount()
     {
         return 5;
     }
 
-    public override void animalName(string name)
+    public override string AnimalName()
     {
-        name = "Tortoise";
+        return "Tortoise";
     }
 
-    public override string animalDescription(string description)
+    public override string AnimalDescription()
     {
-        return "These Tortoise are Small and slow, they are Green.";
+        return "These Tortoise are small and slow. They are green in colour.";
     }
 
-    public override string animalSound(string sound)
+    public override string AnimalSound()
     {
-        return "These Tortoise make a Click or Croaking Sound.";
+        return "These Tortoise make a click or croaking sound.";
     }
 }
 
 public class Monkey : Animal
 {
-    public void Interact()
-    {
-        Debug.Log("Monkey is being interacted with!");
-    }
-
-    public void FeedAnimal()
-    {
-        Debug.Log("Monkey has been fed!");
-    }
-
-    public override int animalAmount(int animalAmount)
+    public override int AnimalAmount()
     {
         return 6;
     }
 
-    public override void animalName(string name)
+    public override string AnimalName()
     {
-        name = "Monkeys";
+        return "Monkeys";
     }
 
-    public override string animalDescription(string description)
+    public override string AnimalDescription()
     {
-        return "These Monkey are Small and Curious, they are Brown.";
+        return "These Monkey are small and curious. They are brown in colour.";
     }
 
-    public override string animalSound(string sound)
+    public override string AnimalSound()
     {
-        return "The Monkey make a Scream or Howl Sound.";
+        return "The Monkey make a scream or howl sound.";
     }
 }
