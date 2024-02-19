@@ -18,6 +18,7 @@ public class AnimalBehavior : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;
     public float displayDuration = 10f;
     private GameObject[] pillars;
+    public GameObject[] feedingBox;
 
     private Coroutine displayCoroutine;
 
@@ -39,22 +40,31 @@ public class AnimalBehavior : MonoBehaviour
 
     void Update()
     {
-        
-        foreach (GameObject pillar in pillars)
-        {
-            
-            float distance = Vector2.Distance(transform.position, pillar.transform.position);
 
-            
-            if (distance <= interactionDistance && Input.GetKeyDown(interactKey))
+        foreach (GameObject pillar in GameObject.FindGameObjectsWithTag("Pillar"))
+        {
+            HandleInteraction(pillar);
+        }
+
+
+        foreach (GameObject feedingBox in GameObject.FindGameObjectsWithTag("FeedingBox"))
+        {
+            HandleInteraction(feedingBox);
+        }
+
+    }
+
+    void HandleInteraction(GameObject interactableObject)
+    {
+        
+        float distance = Vector2.Distance(transform.position, interactableObject.transform.position);
+
+        if (distance <= interactionDistance && Input.GetKeyDown(interactKey))
+        {
+            IInteractable interactable = interactableObject.GetComponent<IInteractable>();
+            if (interactable != null)
             {
-                
-                IInteractable interactable = pillar.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    
-                    interactable.AnimalInteract();
-                }
+                interactable.AnimalInteract();
             }
         }
     }

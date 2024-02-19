@@ -29,7 +29,7 @@ namespace Cainos.PixelArtTopDown_Basic
                 rb.velocity = movement * speed;
                 animator.SetBool("IsMoving", true);
 
-                // Set animation direction
+                // animation directions
                 if (Mathf.Abs(horizontalInput) > Mathf.Abs(verticalInput))
                 {
                     if (horizontalInput > 0)
