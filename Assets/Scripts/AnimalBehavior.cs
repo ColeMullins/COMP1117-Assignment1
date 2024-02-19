@@ -7,23 +7,76 @@ using TMPro;
 
 public class AnimalBehavior : MonoBehaviour
 {
-    public TMP_Text Text;
+    public Animal[] animals; 
+   
     int AniNumber;
     string AniName;
 
-    private void Update()
-    {
-        ButtonPromptManager button = GetComponent<ButtonPromptManager>();
-        Animal[] animal = { new Moose(), new Gorilla(), new Tortoise(), new Monkey() };
-        if (button.getNumber(AniNumber) >= 0)
-        {
-            int amount = animal[AniNumber].AnimalAmount();
-            string name = animal[AniNumber].AnimalName();
-            string description = animal[AniNumber].AnimalDescription();
-            string sound = animal[AniNumber].AnimalSound();
+    public TMP_Text textBox;
+    public GameObject textBoxPanel;
+    public float interactionDistance = 200f; 
+    public KeyCode interactKey = KeyCode.E;
+    public float displayDuration = 10f;
+    private GameObject[] pillars;
 
-            Text.text = "animal Name:" + name + " Amount:" + amount + " Description:" + description + " Sound:" + sound;
+    private Coroutine displayCoroutine;
+
+    void Start()
+    {
+
+        pillars = GameObject.FindGameObjectsWithTag("Pillar");
+        animals = new Animal[]
+        {
+            new Moose(),
+            new Gorilla(),
+            new Tortoise(),
+            new Monkey()
+        };
+
+        textBox.gameObject.SetActive(false);
+        textBoxPanel.SetActive(false);
+    }
+
+    void Update()
+    {
+        
+        foreach (GameObject pillar in pillars)
+        {
+            
+            float distance = Vector2.Distance(transform.position, pillar.transform.position);
+
+            
+            if (distance <= interactionDistance && Input.GetKeyDown(interactKey))
+            {
+                
+                IInteractable interactable = pillar.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    
+                    interactable.AnimalInteract();
+                }
+            }
         }
+    }
+    public void DisplayInformation(string information)
+    {
+        textBox.gameObject.SetActive(true);
+        textBoxPanel.SetActive(true);
+
+        textBox.text = information;
+
+        if (displayCoroutine != null)
+            StopCoroutine(displayCoroutine);
+
+        displayCoroutine = StartCoroutine(TurnOffTextBoxAfterDelay());
+    }
+
+    private IEnumerator TurnOffTextBoxAfterDelay()
+    {
+        yield return new WaitForSeconds(displayDuration);
+
+        textBox.gameObject.SetActive(false);
+        textBoxPanel.SetActive(false);
     }
 }
 
